@@ -1,0 +1,236 @@
+<div class="clients-wrapper">
+
+  <div class="client-grid">
+    <h2>Список клиентов</h2>
+    <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="rowData"
+      [columnDefs]="columnDefs">
+    </ag-grid-angular>
+  </div>
+
+  <div class="form-wrapper">
+
+    <h2>{{formtitle()}}</h2>
+    <form>
+      <div>
+        <label>Добавление </label>
+        <input value="add" name="formmode" type="radio" [(ngModel)]="clientForm.formmode" />
+      </div>
+
+      <div>
+        <label>Редактирование </label>
+        <input value="edit" name="formmode" type="radio" [(ngModel)]="clientForm.formmode" />
+      </div>
+      <br>
+
+
+
+
+      <div class="form-control">
+        <label>Имя</label>
+        <input pattern="^[А-Яа-яЁё]+$" #name="ngModel" type="text" [(ngModel)]="clientForm.firstName" required
+          name="firstname" />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div class="error" *ngIf="name.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="name.errors.pattern">
+            Допускаются только русские буквы
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Отчество</label>
+        <input #middleName="ngModel" pattern="^[А-Яа-яЁё]+$" type="text" [(ngModel)]="clientForm.middleName" required
+          name="middleName" />
+        <div *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)">
+          <div class="error" *ngIf="middleName.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="middleName.errors.pattern">
+            Допускаются только русские буквы
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Фамилия</label>
+        <input pattern="^[А-Яа-яЁё]+$" #surname="ngModel" type="text" [(ngModel)]="clientForm.surname" required
+          name="surname" />
+        <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+          <div class="error" *ngIf="surname.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="surname.errors.pattern">
+            Допускаются только русские буквы
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-control">
+        <label>Пол</label>
+        <div class="radios-onw-row">
+          <div>
+            <label>Мальчик</label>
+            <input #sex = "ngModel" type="radio" [(ngModel)]="clientForm.genre" value="m" required name="genre" />
+          </div>
+          <div>
+            <label>Девочка</label>
+            <input #sex = "ngModel" type="radio" [(ngModel)]="clientForm.genre" value="f" required name="genre" />
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-control">
+        <label>Email</label>
+        <input #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" type="text"
+          [(ngModel)]="clientForm.email" name="email" />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div class="error" *ngIf="email.errors.pattern">
+            Невалидный формат
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Гражданство</label>
+        <select name="citizenship" #citizenship="ngModel" required [(ngModel)]="clientForm.citizenship">
+          <option *ngFor="let item of citienzships; let i = index" [value]="item">{{item}}</option>
+        </select>
+        <div *ngIf="citizenship.invalid && (citizenship.dirty || citizenship.touched)">
+          <div class="error" *ngIf="citizenship.errors.required">
+            Обязательное поле
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-control">
+        <label>Инвалидность</label>
+        <select name="disability" #disability="ngModel" required [(ngModel)]="clientForm.disability">
+          <option *ngFor="let item of disabilities; let i = index" [value]="item">{{item}}</option>
+        </select>
+        <div *ngIf="disability.invalid && (disability.dirty || disability.touched)">
+          <div class="error" *ngIf="disability.errors.required">
+            Обязательное поле
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Пенсионер</label>
+        <input #pens = "ngModel" class="chbx" type="checkbox" [(ngModel)]="clientForm.isRetire" required name="isRetire" />
+        <div *ngIf="pens.invalid && (pens.dirty || pens.touched)">
+          <div class="error" *ngIf="pens.errors.required">
+            Обязательное поле
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Мобильный телефон</label>
+        <input pattern="\+37529[0-9]{7}"  #mobile = "ngModel" type="text" [(ngModel)]="clientForm.mobilePhone" required name="mobilePhone" />
+        <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+          <div class="error" *ngIf="mobile.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="mobile.errors.pattern">
+            +375295878552
+          </div>
+        </div>
+      </div>
+      <div class="form-control">
+        <label>Домашний телефон</label>
+        <input #homephone="ngModel" pattern="[1-9]{1}[0-9]{4}" type="text" [(ngModel)]="clientForm.homePhone" required name="homePhone" />
+        <div *ngIf="homephone.invalid && (homephone.dirty || homephone.touched)">
+          <div class="error" *ngIf="homephone.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="homephone.errors.pattern">
+            +375295878552
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control">
+        <label>Дата рождения</label>
+        <input  #dob = "ngModel" pattern="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" type="text" [(ngModel)]="clientForm.birthDate"
+          required name="birthDate" />
+          <div *ngIf="dob.invalid && (dob.dirty || dob.touched)">
+            <div class="error" *ngIf="dob.errors.required">
+              Обязательное поле
+            </div>
+            <div class="error" *ngIf="dob.errors.pattern">
+              дд-мм-гггг
+            </div>
+          </div>
+      </div>
+
+      <div class="form-control">
+        <label>Место рождения</label>
+        <input type="text" [(ngModel)]="clientForm.birthPlace" required name="birthPlace" />
+      </div>
+      <div class="form-control">
+        <label>Номер паспорта</label>
+        <input #passportID = "ngModel" pattern="[A-Z]{2}[0-9]{7}" type="text" [(ngModel)]="clientForm.passportId" required name="passportId" />
+        <div *ngIf="passportID.invalid && (passportID.dirty || passportID.touched)">
+          <div class="error" *ngIf="passportID.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="passportID.errors.pattern">
+            Пример HB2504555
+          </div>
+      </div>
+      <div class="form-control">
+        <label>Кем выдан паспорт</label>
+        <input type="text" [(ngModel)]="clientForm.issuedBy" required name="isRetire" />
+      </div>
+      <div class="form-control">
+        <label>Дата выдачи паспорта</label>
+        <input pattern="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$" #dov="ngModel" type="text" [(ngModel)]="clientForm.issuedWhen" required name="issuedWhen" />
+
+        <div *ngIf="dov.invalid && (dov.dirty || dov.touched)">
+          <div class="error" *ngIf="dov.errors.required">
+            Обязательное поле
+          </div>
+          <div class="error" *ngIf="dov.errors.pattern">
+            дд-мм-гггг
+          </div>
+        </div>
+      </div>
+      <div class="form-control">
+        <label>Адрес регистрации</label>
+        <input type="text" [(ngModel)]="clientForm.registrationAddress" required name="registrationAddress" />
+      </div>
+      <div class="form-control">
+        <label>Идентификационный номер</label>
+        <input type="text" [(ngModel)]="clientForm.identificationNumber" required name="identificationNumber" />
+      </div>
+      <div class="form-control">
+        <label>Семейное положение</label>
+        <input type="text" [(ngModel)]="clientForm.maritalStatus" required name="maritalStatus" />
+      </div>
+      <div class="form-control">
+        <label>Месячный доход</label>
+        <input type="text" [(ngModel)]="clientForm.monthlyIncome" required name="monthlyIncome" />
+      </div>
+      <div class="form-control">
+        <label>Город проживания</label>
+        <input type="text" [(ngModel)]="clientForm.residencePlace" required name="residencePlace" />
+      </div>
+      <div class="form-control">
+        <label>Адрес проживания</label>
+        <input type="text" [(ngModel)]="clientForm.residenceAddress" required name="residenceAddress" />
+      </div>
+      <div class="form-control">
+        <button [disabled]=""
+          (click)="onFormClick()">Подтвердить</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
